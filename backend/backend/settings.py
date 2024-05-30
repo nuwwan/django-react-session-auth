@@ -27,9 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# auth user
+AUTH_USER_MODEL='authentication.AuthUser'
+
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'app',
-    'auth',
+    'authentication',
 ]
 
 MIDDLEWARE = [
