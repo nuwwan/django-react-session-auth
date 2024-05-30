@@ -1,21 +1,25 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 
 from .models import AuthUser
 
+
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password2 = forms.CharField(
+        label="Password confirmation", widget=forms.PasswordInput
+    )
 
     class Meta:
         model = AuthUser
-        fields = ('email', 'first_name','last_name')
+        fields = ("email", "first_name", "last_name")
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -33,16 +37,26 @@ class UserCreationForm(forms.ModelForm):
             user.save()
         return user
 
+
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
     the user, but replaces the password field with admin's
     disabled password hash display field.
     """
+
     password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = AuthUser
-        fields = ('email', 'password', 'first_name','last_name', 'is_active', 'is_superuser')
+        fields = (
+            "email",
+            "password",
+            "first_name",
+            "last_name",
+            "is_active",
+            "is_superuser",
+        )
+
 
 class CustomUserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
@@ -52,24 +66,28 @@ class CustomUserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'first_name', 'is_superuser')
-    list_filter = ('is_superuser',)
+    list_display = ("email", "first_name", "is_superuser")
+    list_filter = ("is_superuser",)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name','last_name')}),
-        ('Permissions', {'fields': ('is_superuser',)}),
+        (None, {"fields": ("email", "password")}),
+        ("Personal info", {"fields": ("first_name", "last_name")}),
+        ("Permissions", {"fields": ("is_superuser",)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'first_name', 'password1', 'password2'),
-        }),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("email", "first_name", "password1", "password2"),
+            },
+        ),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ("email",)
+    ordering = ("email",)
     filter_horizontal = ()
+
 
 admin.site.register(AuthUser, CustomUserAdmin)
 admin.site.unregister(Group)
