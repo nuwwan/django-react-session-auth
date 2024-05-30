@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
 
 
 """
@@ -24,7 +24,7 @@ class AuthUserManager(BaseUserManager):
 """
 This will be the Auth user of the application
 """
-class AuthUser(AbstractBaseUser):
+class AuthUser(AbstractBaseUser,PermissionsMixin):
     email=models.EmailField(unique=True)
     first_name=models.CharField(max_length=50)
     last_name=models.CharField(max_length=50)
