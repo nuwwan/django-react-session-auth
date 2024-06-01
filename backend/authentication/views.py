@@ -1,8 +1,7 @@
-from django.contrib.auth import authenticate, login,logout
-
+from django.contrib.auth import authenticate, login, logout
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
 
 from .models import AuthUser
 
@@ -42,29 +41,44 @@ def register_view(request):
 
 @api_view(["POST"])
 def login_view(request):
-    data=request.data
-    email=data.get('email')
-    password=data.get('password')
-    if(email and password):
+    data = request.data
+    email = data.get("email")
+    password = data.get("password")
+    if email and password:
         try:
             # authenticate user
-            user=authenticate(email=email,password=password)
+            user = authenticate(email=email, password=password)
             if user is not None:
                 # make the request loged in
-                login(request,user)
-                return Response({'message':'Successfully Authenticated'},status=status.HTTP_200_OK)
+                login(request, user)
+                return Response(
+                    {"message": "Successfully Authenticated"}, status=status.HTTP_200_OK
+                )
             else:
-                return Response({'message':'Invalid credentials'},status=status.HTTP_401_UNAUTHORIZED)
+                return Response(
+                    {"message": "Invalid credentials"},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
         except:
-            return Response({'message':'Failed to authenticate User'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"message": "Failed to authenticate User"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
     else:
-        return Response({'message':'Please check input data'},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"message": "Please check input data"}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @api_view(["POST"])
 def logout_view(request):
     try:
         logout(request)
-        return Response({'message':'User successfully loged out'},status=status.HTTP_200_OK)
+        return Response(
+            {"message": "User successfully loged out"}, status=status.HTTP_200_OK
+        )
     except Exception as ex:
-        return Response({'message':'Operation Failed!'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(
+            {"message": "Operation Failed!"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
