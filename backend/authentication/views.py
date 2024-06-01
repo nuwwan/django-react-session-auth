@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -63,4 +63,8 @@ def login_view(request):
 
 @api_view(["POST"])
 def logout_view(request):
-    return Response({"message": "something"})
+    try:
+        logout(request)
+        return Response({'message':'User successfully loged out'},status=status.HTTP_200_OK)
+    except Exception as ex:
+        return Response({'message':'Operation Failed!'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
