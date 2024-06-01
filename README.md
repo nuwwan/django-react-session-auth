@@ -11,6 +11,7 @@ Developing Custom Auth user is at the very beginning of starting the development
 * Extend the AbstractBaseUser model. 
 
 In this project, i follows the 2nd method and which provied fully flexibility to the developer while django taking careof the most required operations including password hashing etc. You can find this custom auth user inside the backend/authentication/models.py. Further i've created a auth user manager class which responsible for creating auth user and super user.
+
 NOTE: PLEASE NOTE THAT, YOU SHOULD CREATE A CUSTOM AUTH USER BEFORE RUNNING THE MIGRATIONS FOR THE FIRST TIME.
 ### 2. Linting
 ### 3. Add pyproject.toml file
