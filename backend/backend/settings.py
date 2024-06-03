@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "app",
     "authentication",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -140,3 +142,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Disable CSRF globally for DRF
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]  # Add your trusted origins here
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
