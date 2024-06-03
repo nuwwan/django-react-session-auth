@@ -7,7 +7,6 @@ const Login: React.FC = (props) => {
     const navigate = useNavigate()
 
     const handleLogin = () => {
-        console.log("nuwa")
         setIsAuthenticated(true)
         navigate('/user')
     }
