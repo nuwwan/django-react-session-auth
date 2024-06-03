@@ -1,10 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { AuthProvider } from './services/auth/AuthProvider';
+import Routes from './Routes';
 
 function App() {
   return (
-    <p>Hello</p>
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }
 

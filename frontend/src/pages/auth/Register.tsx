@@ -3,7 +3,7 @@
 const Register:React.FC=(props)=>{
     return (
         <div>
-            Login
+            Register
         </div>
     )
 }
