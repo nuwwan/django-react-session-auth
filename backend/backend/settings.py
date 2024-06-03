@@ -134,3 +134,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+SESSION_COOKIE_AGE = 30
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Disable CSRF globally for DRF
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]  # Add your trusted origins here

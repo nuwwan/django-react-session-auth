@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import AuthUser
@@ -70,7 +72,8 @@ def login_view(request):
         )
 
 
-@api_view(["POST"])
+@csrf_exempt
+@api_view(["GET"])
 def logout_view(request):
     try:
         logout(request)
@@ -82,3 +85,24 @@ def logout_view(request):
             {"message": "Operation Failed!"},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+
+"""
+This endpoint will return the user details for authenticated users. For un-authenticated users, 
+will return 401 un-authenticated status message
+"""
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_user(request):
+    # construct the user data
+    req_user = request.user
+    data = {
+        "id": req_user.id,
+        "first_name": req_user.first_name,
+        "email": req_user.email,
+    }
+    return Response(
+        {"message": "User Details", "data": data}, status=status.HTTP_200_OK
+    )
