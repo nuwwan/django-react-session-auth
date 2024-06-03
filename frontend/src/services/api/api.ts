@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const navigate = useNavigate()
+
 // Base Url of the backend API
 // TODO: Base URL needed to be decided based on the env(ie:dev/test/prod etc..) 
 const baseURL = 'localhost:9000/'
 const API_TIMEOUT = 1000
-const navigate = useNavigate()
 
 const api = axios.create({
     baseURL: baseURL,
@@ -47,3 +48,5 @@ api.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+export default api
