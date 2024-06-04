@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { UserDetailsAPI1, UserLogout } from '../../services/api/AuthApi.s'
+import { useNavigate } from 'react-router-dom'
+import { UserDetailsAPI, UserLogout } from '../../services/api/AuthApi.s'
 
 type TUser = {
   id: number
@@ -9,29 +10,32 @@ type TUser = {
 
 const User: React.FC = props => {
   const [user, setUser] = useState<TUser | null>()
+  const navigate = useNavigate()
   // call backend at the first load to get user details
   useEffect(() => {
     getUser()
   }, [])
 
   const getUser = () => {
-    UserDetailsAPI1()
+    UserDetailsAPI()
       .then(success => {
         setUser(success.data.data)
-        console.log('nuwan', success)
+        console.log('User details fetched successfully', success)
       })
       .catch(error => {
-        console.log('nuwan', error)
+        console.log('Error when fetching User details', error)
       })
   }
 
   const logout = () => {
     UserLogout()
       .then(success => {
-        console.log('nuwan', success)
+        console.log('User logout successfully', success)
+        // Redirect user to home page
+        navigate('/')
       })
       .catch(error => {
-        console.log('nuwan', error)
+        console.log('Error when logout user', error)
       })
   }
 

@@ -10,20 +10,23 @@ const Login: React.FC = props => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = () => {
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    // Prevent page getting refreshed
+    event.preventDefault();
     LoginApi(username, password)
       .then(success => {
-        console.log('nuwan', success)
+        console.log('user loged in successfully', success)
         setIsAuthenticated(true)
         navigate('/user')
       })
       .catch(error => {
-        console.log('nuwan', error)
+        console.log('Error login user', error)
       })
   }
 
   return (
     <div>
+      <form onSubmit={handleLogin}>
       <div>
         <label>Username:</label>
         <input
@@ -40,8 +43,8 @@ const Login: React.FC = props => {
           onChange={e => setPassword(e.target.value)}
         />
       </div>
-
-      <button onClick={handleLogin}>Login</button>
+      <button type="submit">Submit</button>
+      </form>
     </div>
   )
 }
