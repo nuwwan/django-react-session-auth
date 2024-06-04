@@ -1,6 +1,6 @@
-export type TRegisterUser ={
-    email: string;
-    password: string;
-    firstname: string;
-    lastname: string;
-  }
+export type TRegisterUser = {
+  email: string
+  password: string
+  firstname: string
+  lastname: string
+}

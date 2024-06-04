@@ -12,7 +12,7 @@ const Login: React.FC = props => {
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     // Prevent page getting refreshed
-    event.preventDefault();
+    event.preventDefault()
     LoginApi(username, password)
       .then(success => {
         console.log('user loged in successfully', success)
@@ -27,23 +27,23 @@ const Login: React.FC = props => {
   return (
     <div>
       <form onSubmit={handleLogin}>
-      <div>
-        <label>Username:</label>
-        <input
-          type="text"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-      </div>
-      <button type="submit">Submit</button>
+        <div>
+          <label>Username:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   )
