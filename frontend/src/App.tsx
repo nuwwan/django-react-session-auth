@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { AuthProvider } from './services/auth/AuthProvider'
+import Routes from './Routes'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { setupResponseInterceptors } from './services/api/BaseApi.s'
 
 function App() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    setupResponseInterceptors(navigate)
+  }, [navigate])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
+  )
 }
 
-export default App;
+export default App
