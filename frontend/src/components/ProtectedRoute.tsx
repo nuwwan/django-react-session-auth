@@ -1,4 +1,4 @@
-import React, { Component, ComponentType } from "react";
+import React  from "react";
 import { useAuth } from "../services/auth/AuthProvider";
 import { Route, Navigate, RouteProps, Outlet } from "react-router-dom";
 
