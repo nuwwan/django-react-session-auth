@@ -137,7 +137,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SESSION_COOKIE_AGE = 30
+SESSION_COOKIE_AGE = 300
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Disable CSRF globally for DRF
@@ -145,4 +145,11 @@ CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]  # Add your trusted origins her
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://127.0.0.1:3000',
 ]
+CORS_ALLOW_CREDENTIALS = True
+
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
