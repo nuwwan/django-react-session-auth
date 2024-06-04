@@ -19,3 +19,13 @@ NOTE: PLEASE NOTE THAT, YOU SHOULD CREATE A CUSTOM AUTH USER BEFORE RUNNING THE 
 ### 5. Unit Testing
 
 ## Frontend
+
+### How to set up
+1. Install dependencies.
+```
+npm install
+```
+2. Run the FrontEnd on local.
+```
+npm start
+```
