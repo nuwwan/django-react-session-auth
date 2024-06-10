@@ -8,6 +8,13 @@ from rest_framework.response import Response
 from .models import AuthUser
 
 
+"""
+This Endpoint registers new user.
+@param email : user email
+@param password : password
+@param firstname : user first name
+@param lastname : user last name
+"""
 @api_view(["POST"])
 def register_view(request):
     data = request.data
@@ -41,6 +48,11 @@ def register_view(request):
         return Response({"status": "Error"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+"""
+This endpoint make a user login.
+@param email : email
+@param password : password
+"""
 @api_view(["POST"])
 def login_view(request):
     data = request.data
@@ -72,8 +84,12 @@ def login_view(request):
         )
 
 
+"""
+This endpoint logs out a user. The user is required to login.
+"""
 @csrf_exempt
-@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+@api_view(["POST"])
 def logout_view(request):
     try:
         logout(request)
@@ -89,10 +105,8 @@ def logout_view(request):
 
 """
 This endpoint will return the user details for authenticated users. For un-authenticated users, 
-will return 401 un-authenticated status message
+will return 403 un-authenticated status message
 """
-
-
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_user(request):
