@@ -3,10 +3,9 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
 from django.db import models
 
 """
-Manager for the Auth user
+Manager for the Auth user. 
+User manager is used by django to perform user creation and super user creation.
 """
-
-
 class AuthUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -24,10 +23,8 @@ class AuthUserManager(BaseUserManager):
 
 
 """
-This will be the Auth user of the application
+This will be the Auth user of the application.
 """
-
-
 class AuthUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50)
