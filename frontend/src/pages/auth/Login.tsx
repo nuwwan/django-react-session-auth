@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../services/auth/AuthProvider'
 import { LoginApi } from '../../services/api/AuthApi.s'
@@ -11,6 +11,18 @@ const Login: React.FC = props => {
   const [password, setPassword] = useState('')
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    useEffect(() => {
+      // set isAuthenticated to false
+      if (!isAuthenticated) {
+        setIsAuthenticated(false)
+      } else {
+        console.log(
+          'User is already authenticated. Redirecitng to User page...',
+        )
+        navigate('/user')
+      }
+    }, [])
+    
     // Prevent page getting refreshed
     event.preventDefault()
     LoginApi(username, password)
